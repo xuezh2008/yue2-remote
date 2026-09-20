@@ -274,7 +274,7 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
 
 /* ===================== state ===================== */
 var KEY = "yue2.remote.v1";
-var S = { base:"", token:"", ok:false, jobs:[], lib:[], timer:null, cot:"full" };
+var S = { base:"", token:"", ok:false, guessed:false, jobs:[], lib:[], timer:null, cot:"full" };
 
 function $(s,r){ return (r||document).querySelector(s); }
 function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
@@ -354,6 +354,7 @@ function connect(fromUI){
   if(fromUI !== false){
     S.base  = normalise($("#s-base").value);
     S.token = $("#s-token").value.trim();
+    S.guessed = false;
     $("#s-base").value = S.base;
     save();
   }
@@ -383,13 +384,24 @@ function connect(fromUI){
         "It was started with <code>--token</code>. Paste the secret below and connect again.");
       gate(); return;
     }
-    S.ok = true;
+    S.ok = true; S.guessed = false; save();
     setChip(p.busy ? "busy" : "on", p.busy ? "busy" : "connected");
     showConn("ok", "Connected", "<code>" + esc(S.base) + "</code> is answering.");
     gate(); loadSystem(); loadLib();
   }).catch(function(e){
-    S.ok = false; setChip("off", "offline");
-    showConn("bad", "Could not reach the server", explain(e));
+    S.ok = false;
+    if(S.guessed){
+      /* We only assumed this page's own origin was the server. It is not - most likely
+         this is the GitHub Pages copy on a phone that has not been set up yet. */
+      S.base = ""; S.guessed = false; $("#s-base").value = "";
+      setChip("off", "no server");
+      showConn("warn", "Point it at your server",
+        "Start YuE2 on the PC with the GPU, then type the address from its startup banner " +
+        "above — something like <code>192.168.68.125:7860</code>.");
+    }else{
+      setChip("off", "offline");
+      showConn("bad", "Could not reach the server", explain(e));
+    }
     gate();
   });
 }
@@ -617,8 +629,9 @@ function toast(m){
     save();
     history.replaceState(null, "", location.pathname);   /* keep the token out of the address bar */
   }
-  /* Served by the server itself? Then same-origin is the server. */
-  if(!S.base && location.protocol.indexOf("http") === 0) S.base = location.origin;
+  /* Served by the server itself? Then same-origin is the server. A GitHub Pages build is
+     not, so this is only a guess - connect() falls back to the setup screen if it fails. */
+  if(!S.base && location.protocol.indexOf("http") === 0){ S.base = location.origin; S.guessed = true; }
 
   $("#s-base").value  = S.base;
   $("#s-token").value = S.token;
