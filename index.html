@@ -306,6 +306,27 @@ function blockedByMixedContent(base){
 /* The same app, served by the server itself: no CORS, no mixed content. */
 function localCopy(base){ return base.replace(/^https:/, "http:") + "/m"; }
 
+/* With --tls the server also serves plain http one port up. A self-signed certificate is the
+   one thing a phone cannot reliably be talked through - Safari on iOS in particular may accept
+   it for a direct visit and still refuse it for a call made from this page - so that companion
+   port is the way in when the certificate is what failed. */
+function plainCopy(base){
+  try{
+    var u = new URL(base);
+    if(!u.port) return "";        /* no explicit port: nothing sensible to add one to */
+    return "http://" + u.hostname + ":" + (parseInt(u.port, 10) + 1) + "/m";
+  }catch(e){ return ""; }
+}
+function certEscape(){
+  if(S.base.indexOf("https://") !== 0) return "";
+  var url = plainCopy(S.base);
+  if(!url) return "";
+  return '<p style="margin:10px 0 0">If the certificate warning is what stopped it, skip the ' +
+    "certificate altogether - the server hands out the same app over plain http one port up:</p>" +
+    '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' +
+    esc(url) + '">Open ' + esc(url) + "</a>";
+}
+
 /* ===================== transport ===================== */
 function ApiError(msg, kind){ var e = new Error(msg); e.kind = kind || "http"; return e; }
 
@@ -400,7 +421,7 @@ function connect(fromUI){
         "above — something like <code>192.168.68.125:7860</code>.");
     }else{
       setChip("off", "offline");
-      showConn("bad", "Could not reach the server", explain(e));
+      showConn("bad", "Could not reach the server", explain(e) + certEscape());
     }
     gate();
   });

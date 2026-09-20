@@ -29,15 +29,17 @@ lifting stays on the GPU at home; GitHub only ever serves this one file.
 
 ### If the certificate is more trouble than it is worth
 
-Browsers refuse to let an `https://` page call a plain `http://` address, which is the whole reason
-the server speaks TLS. The way around it is to let the server hand out the app itself:
+Some phones will not be talked through that warning. Safari on iOS in particular may accept the
+certificate for a direct visit and still refuse a call made to it *from* this page.
+
+So `--tls` also serves plain http on the next port up, with no certificate anywhere in the way:
 
 ```
-http://192.168.68.125:7860/m
+http://192.168.68.125:7861/m
 ```
 
-Exactly the same file, served from the PC instead of from GitHub — no certificate, no warning. The
-GitHub copy detects the block and offers this as a one-tap button.
+Exactly the same file, served from the PC instead of from GitHub. This page offers it as a one-tap
+button whenever it cannot reach the server over https. Both ports need a firewall rule.
 
 ## Publishing changes
 
