@@ -27,7 +27,6 @@ body{
 button,input,textarea,select{font:inherit;color:inherit}
 a{color:var(--accent);text-underline-offset:3px}
 
-/* ---------- chrome ---------- */
 header{
   position:sticky; top:0; z-index:20; background:rgba(11,13,18,.92);
   backdrop-filter:saturate(1.6) blur(12px); border-bottom:1px solid var(--line);
@@ -47,26 +46,25 @@ header h1 span{color:var(--dimmer);font-weight:400}
 .chip.off::before{background:var(--bad)}
 @keyframes pulse{50%{opacity:.25}}
 
-main{flex:1;padding:var(--pad);padding-bottom:96px;max-width:720px;width:100%;margin:0 auto}
+main{flex:1;padding:var(--pad);padding-bottom:100px;max-width:760px;width:100%;margin:0 auto}
 .view{display:none;animation:in .18s ease}
 .view.on{display:block}
 @keyframes in{from{opacity:0;transform:translateY(4px)}}
 
 nav{
   position:fixed;left:0;right:0;bottom:0;z-index:20;
-  display:grid;grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(4,1fr);
   background:rgba(16,19,27,.94);backdrop-filter:blur(12px);
   border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);
 }
 nav button{
-  appearance:none;background:none;border:0;padding:11px 4px 12px;
-  color:var(--dimmer);font-size:11px;font-weight:550;letter-spacing:.2px;
+  appearance:none;background:none;border:0;padding:11px 2px 12px;
+  color:var(--dimmer);font-size:10.5px;font-weight:550;letter-spacing:.2px;
   display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;
 }
-nav button svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{color:var(--accent)}
 
-/* ---------- blocks ---------- */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:var(--pad);margin-bottom:14px}
 h2{font-size:13px;font-weight:650;letter-spacing:.7px;text-transform:uppercase;color:var(--dim);margin:0 0 12px}
 label{display:block;font-size:12.5px;font-weight:600;color:var(--dim);margin:0 0 6px}
@@ -79,10 +77,18 @@ input[type=text],input[type=number],input[type=password],textarea,select{
 }
 input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,108,255,.18)}
 textarea{resize:vertical;min-height:84px;line-height:1.55}
-textarea.lyrics{min-height:180px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px}
+textarea.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px}
+textarea.lyrics{min-height:170px}
+textarea.abc{min-height:230px}
 select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 4.5 6 8l3-3.5' stroke='%238b93a7' stroke-width='1.4' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:12px;padding-right:34px}
+input[type=file]{width:100%;font-size:13px;color:var(--dim)}
+input[type=file]::-webkit-file-upload-button{
+  appearance:none;background:var(--panel2);border:1px solid var(--line);color:var(--text);
+  border-radius:9px;padding:8px 12px;margin-right:10px;font-size:13px;font-weight:600;
+}
 .row{display:flex;gap:10px}
 .row>*{flex:1;min-width:0}
+.row.tight{gap:8px}
 
 .seg{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:3px;gap:3px}
 .seg button{
@@ -90,6 +96,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
   font-size:13px;font-weight:600;color:var(--dim);cursor:pointer;transition:.15s;
 }
 .seg button.on{background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 6px rgba(124,108,255,.4)}
+.seg button:disabled{opacity:.4;cursor:default}
 
 .btn{
   appearance:none;width:100%;border:0;border-radius:12px;padding:14px;
@@ -100,7 +107,7 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .btn:disabled{opacity:.45;cursor:default}
 .btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
 .btn.bad{background:none;border:1px solid var(--line);color:var(--bad)}
-.btn.sm{padding:9px 14px;font-size:13px;width:auto}
+.btn.sm{padding:9px 13px;font-size:13px;width:auto}
 
 .note{font-size:12.5px;color:var(--dimmer);margin:8px 0 0;line-height:1.5}
 .msg{border-radius:11px;padding:12px 13px;font-size:13.5px;line-height:1.55;margin-bottom:14px;border:1px solid}
@@ -113,7 +120,18 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .msg li{margin-bottom:6px}
 .msg .btn{margin-top:10px}
 
-/* ---------- jobs ---------- */
+/* accordions */
+details.acc{border:1px solid var(--line);border-radius:12px;background:var(--panel2);margin-bottom:12px;overflow:hidden}
+details.acc>summary{
+  padding:12px 14px;cursor:pointer;list-style:none;font-size:13px;font-weight:600;color:var(--dim);
+  display:flex;align-items:center;gap:9px;
+}
+details.acc>summary::-webkit-details-marker{display:none}
+details.acc>summary::after{content:"";margin-left:auto;width:7px;height:7px;border-right:1.6px solid var(--dimmer);border-bottom:1.6px solid var(--dimmer);transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+details.acc[open]>summary::after{transform:rotate(225deg) translateY(-2px)}
+details.acc .acc-body{padding:2px 14px 14px}
+
+/* jobs */
 .job{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px}
 .job.done{border-color:rgba(51,214,166,.4)}
 .job.failed{border-color:rgba(255,107,107,.4)}
@@ -134,8 +152,9 @@ select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='ht
 .steps span::before{content:"\2713 ";color:var(--ok)}
 audio{width:100%;margin-top:12px;border-radius:10px}
 
-/* ---------- library ---------- */
+/* library */
 .item{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.item.sel{border-color:var(--accent)}
 .item>summary{padding:13px 14px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:11px}
 .item>summary::-webkit-details-marker{display:none}
 .item-main{flex:1;min-width:0}
@@ -144,12 +163,24 @@ audio{width:100%;margin-top:12px;border-radius:10px}
 .item .caret{flex:none;color:var(--dimmer);transition:transform .2s}
 .item[open] .caret{transform:rotate(90deg)}
 .item-body{padding:12px 14px 14px;border-top:1px solid var(--line)}
+.pick{flex:none;width:22px;height:22px;border-radius:6px;border:1.6px solid var(--line);background:var(--panel2);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.pick.on{background:var(--accent);border-color:var(--accent)}
+.pick svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.6;opacity:0}
+.pick.on svg{opacity:1}
 .kv{font-size:12.5px;color:var(--dim);margin-bottom:10px}
 .kv div{display:flex;gap:8px;padding:3px 0}
-.kv b{color:var(--dimmer);font-weight:500;min-width:74px;flex:none}
-pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px;font-size:12px;line-height:1.5;max-height:190px;overflow:auto;white-space:pre-wrap;word-break:break-word;margin:0 0 10px}
+.kv b{color:var(--dimmer);font-weight:500;min-width:84px;flex:none}
+pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px;font-size:12px;line-height:1.5;max-height:200px;overflow:auto;white-space:pre-wrap;word-break:break-word;margin:0 0 10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 .acts .btn.sm{text-decoration:none;display:inline-block;text-align:center}
+
+.selbar{
+  position:fixed;left:10px;right:10px;bottom:calc(72px + env(safe-area-inset-bottom));z-index:30;
+  background:var(--panel2);border:1px solid var(--accent);border-radius:13px;padding:10px 12px;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);display:none;align-items:center;gap:8px;
+}
+.selbar.on{display:flex}
+.selbar span{flex:1;font-size:13px;font-weight:600}
 
 .empty{text-align:center;color:var(--dimmer);padding:44px 18px;font-size:14px}
 .empty svg{width:40px;height:40px;stroke:currentColor;fill:none;stroke-width:1.3;opacity:.4;margin-bottom:12px}
@@ -160,17 +191,21 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
   transition:.25s;z-index:60;max-width:calc(100vw - 32px);
 }
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.ab{display:flex;gap:10px;margin-top:10px}
+.ab>div{flex:1;min-width:0;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px}
+.ab h3{margin:0 0 6px;font-size:13px;font-weight:650}
+.ab .who{font-size:11.5px;color:var(--dimmer);word-break:break-all}
 </style>
 </head>
 <body>
 
 <header>
   <h1>YuE2 <span>Remote</span></h1>
-  <button class="chip" id="chip" onclick="go('settings')">connecting…</button>
+  <button class="chip" id="chip" onclick="go('settings')">connecting&hellip;</button>
 </header>
 
 <main>
-  <!-- ============ CREATE ============ -->
+  <!-- ======================= CREATE ======================= -->
   <section class="view" id="v-create">
     <div id="create-gate"></div>
     <div id="create-form" hidden>
@@ -182,8 +217,9 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
         </div>
         <div class="field">
           <label for="f-lyrics">Lyrics <span class="hint">&mdash; mark sections with [Verse], [Chorus]</span></label>
-          <textarea id="f-lyrics" class="lyrics" placeholder="[Verse]&#10;Neon fades along the lane&#10;Footsteps keep the time of rain&#10;&#10;[Chorus]&#10;Let the day come into view"></textarea>
+          <textarea id="f-lyrics" class="lyrics" placeholder="[Verse]&#10;Neon fades along the lane&#10;&#10;[Chorus]&#10;Let the day come into view"></textarea>
         </div>
+        <button class="btn ghost sm" onclick="loadExample()">Load the example song</button>
       </div>
 
       <div class="card">
@@ -221,6 +257,37 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
         </div>
       </div>
 
+      <details class="acc">
+        <summary>Guidance and your own score</summary>
+        <div class="acc-body">
+          <div class="field">
+            <label for="f-cfg">Guidance (cfg_scale) <span class="hint">&mdash; blank = model default</span></label>
+            <input type="text" id="f-cfg" placeholder="" inputmode="decimal">
+            <p class="note" id="cfg-note"></p>
+          </div>
+          <div class="field">
+            <label for="f-abc">Your own ABC score <span class="hint">&mdash; required by Melody planning</span></label>
+            <textarea id="f-abc" class="mono abc" placeholder="X:1&#10;T:&#10;M:4/4&#10;L:1/16&#10;Q:1/4=88&#10;V: Vocal clef=treble&#10;K:C&#10;..." oninput="onAbcInput()"></textarea>
+            <div class="acts">
+              <button class="btn ghost sm" onclick="pullFromScore()">Take from Score tab</button>
+              <button class="btn ghost sm" onclick="$('#f-abc').value='';onAbcInput()">Clear</button>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary>Planner sampling (ABC)</summary>
+        <div class="acc-body"><div id="samp-abc"></div>
+          <p class="note">Blank uses the model default shown in each box.</p></div>
+      </details>
+
+      <details class="acc">
+        <summary>Song sampling (semantic)</summary>
+        <div class="acc-body"><div id="samp-sem"></div>
+          <p class="note">Blank uses the model default shown in each box.</p></div>
+      </details>
+
       <button class="btn" id="go" onclick="submit()">Generate</button>
       <p class="note" id="go-note">One job runs at a time. Roughly 40&ndash;90&nbsp;s per song once the model is loaded.</p>
 
@@ -228,16 +295,72 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
     </div>
   </section>
 
-  <!-- ============ LIBRARY ============ -->
+  <!-- ======================= SCORE ======================= -->
+  <section class="view" id="v-score">
+    <div id="score-gate"></div>
+    <div id="score-body" hidden>
+      <div class="card">
+        <h2>ABC score</h2>
+        <div class="field">
+          <textarea id="s-abc" class="mono abc" placeholder="Paste or load an ABC score here." oninput="scoreDirty()"></textarea>
+        </div>
+        <div class="acts">
+          <button class="btn ghost sm" onclick="inspectScore()">Inspect</button>
+          <button class="btn ghost sm" onclick="compareScore()">Compare with loaded</button>
+          <button class="btn ghost sm" onclick="sendToCreate()">Send to Create</button>
+        </div>
+        <div id="score-out" style="margin-top:12px"></div>
+      </div>
+
+      <div class="card">
+        <h2>Load</h2>
+        <div class="field">
+          <label for="s-example">From an example</label>
+          <div class="row tight">
+            <select id="s-example"></select>
+            <button class="btn ghost sm" style="flex:none" onclick="loadExampleAbc()">Load</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="s-lib">From the library</label>
+          <div class="row tight">
+            <select id="s-lib"></select>
+            <button class="btn ghost sm" style="flex:none" onclick="loadLibAbc()">Load</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Strip chords</h2>
+        <p class="note" style="margin:0 0 12px">Melody planning needs a score with no chord symbols. Keep one voice or both.</p>
+        <div class="row tight">
+          <select id="s-keep">
+            <option value="both">Both voices</option>
+            <option value="Vocal">Vocal only</option>
+            <option value="Ins">Instrumental only</option>
+          </select>
+          <button class="btn ghost sm" style="flex:none" onclick="stripChords()">Strip</button>
+        </div>
+      </div>
+
+      <div class="card" id="cover-card">
+        <h2>Cover from audio</h2>
+        <div id="cover-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LIBRARY ======================= -->
   <section class="view" id="v-library">
     <div class="row" style="margin-bottom:14px">
       <input type="text" id="lib-q" placeholder="Filter by name, style or lyrics&hellip;" oninput="renderLib()" autocapitalize="off" spellcheck="false">
       <button class="btn ghost sm" style="flex:none" onclick="loadLib(true)">Refresh</button>
     </div>
+    <div id="compare-out"></div>
     <div id="lib"></div>
   </section>
 
-  <!-- ============ SETTINGS ============ -->
+  <!-- ======================= SETTINGS ======================= -->
   <section class="view" id="v-settings">
     <div id="conn-msg"></div>
     <div class="card">
@@ -254,6 +377,55 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
       <p class="note">Saved on this device only. You can also link straight to a server:
         <code>?server=192.168.68.125:7860</code></p>
     </div>
+
+    <div class="card" id="gen-card" hidden>
+      <h2>Generation</h2>
+      <div class="row">
+        <div class="field">
+          <label for="g-vae">Decoder</label>
+          <select id="g-vae" onchange="saveGen()">
+            <option value="standard">Standard</option>
+            <option value="legacy">Legacy (benchmark)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="g-backend">Backend</label>
+          <select id="g-backend" onchange="saveGen()">
+            <option value="torch">torch</option>
+            <option value="torch-eager">torch-eager</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="g-quant">Quantization</label>
+          <select id="g-quant" onchange="saveGen()">
+            <option value="none">none</option>
+            <option value="fp8">fp8</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="g-ode">Flow-matching steps</label>
+          <input type="number" id="g-ode" min="1" inputmode="numeric" onchange="saveGen()">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="g-mem">Memory budget <span class="hint">GiB</span></label>
+          <input type="number" id="g-mem" min="2.1" step="0.5" inputmode="decimal" onchange="saveGen()">
+        </div>
+        <div class="field">
+          <label for="g-offload">Offload AR</label>
+          <select id="g-offload" onchange="saveGen()">
+            <option value="false">off</option>
+            <option value="true">on</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn ghost sm" onclick="resetGen()">Reset to server defaults</button>
+      <p class="note">Sent with every job you start from this device.</p>
+    </div>
+
     <div class="card" id="sys" hidden></div>
   </section>
 </main>
@@ -261,12 +433,20 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
 <nav>
   <button id="t-create" onclick="go('create')" class="on">
     <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>Create</button>
+  <button id="t-score" onclick="go('score')">
+    <svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 14h6M8 17h4"/></svg>Score</button>
   <button id="t-library" onclick="go('library')">
     <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Library</button>
   <button id="t-settings" onclick="go('settings')">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Settings</button>
 </nav>
 
+<div class="selbar" id="selbar">
+  <span id="selcount"></span>
+  <button class="btn ghost sm" onclick="blindCompare()">Compare</button>
+  <button class="btn ghost sm" onclick="buildListen()">Listen page</button>
+  <button class="btn ghost sm" onclick="clearSel()">Clear</button>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -274,7 +454,8 @@ pre.txt{background:var(--panel2);border:1px solid var(--line);border-radius:10px
 
 /* ===================== state ===================== */
 var KEY = "yue2.remote.v1";
-var S = { base:"", token:"", ok:false, guessed:false, jobs:[], lib:[], timer:null, cot:"full" };
+var S = { base:"", token:"", ok:false, guessed:false, jobs:[], lib:[], sel:[], timer:null,
+          cot:"full", defaults:null, examples:null, gen:{}, loadedAbc:"" };
 
 function $(s,r){ return (r||document).querySelector(s); }
 function $$(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
@@ -283,37 +464,38 @@ function esc(s){
     return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
   });
 }
-function save(){ try{ localStorage.setItem(KEY, JSON.stringify({ base:S.base, token:S.token })); }catch(e){} }
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({ base:S.base, token:S.token, gen:S.gen })); }catch(e){}
+}
 function load(){
-  try{ var o = JSON.parse(localStorage.getItem(KEY) || "{}"); S.base = o.base || ""; S.token = o.token || ""; }catch(e){}
+  try{
+    var o = JSON.parse(localStorage.getItem(KEY) || "{}");
+    S.base = o.base || ""; S.token = o.token || ""; S.gen = o.gen || {};
+  }catch(e){}
 }
 
 /* ===================== address handling ===================== */
 var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/i;
 
-/* "1.2.3.4:7860" | "http://host" | "https://host/" -> origin, or "" if unusable. */
 function normalise(raw){
   var v = String(raw || "").trim().replace(/\/+$/, "");
   if(!v) return "";
   if(!/^https?:\/\//i.test(v)) v = (location.protocol === "https:" ? "https://" : "http://") + v;
   try{ return new URL(v).origin; }catch(e){ return ""; }
 }
-/* An https page may not fetch http:// - except localhost, which browsers treat as secure. */
 function blockedByMixedContent(base){
   if(location.protocol !== "https:" || base.indexOf("http://") !== 0) return false;
   try{ return !LOCAL.test(new URL(base).hostname); }catch(e){ return true; }
 }
-/* The same app, served by the server itself: no CORS, no mixed content. */
 function localCopy(base){ return base.replace(/^https:/, "http:") + "/m"; }
 
 /* With --tls the server also serves plain http one port up. A self-signed certificate is the
-   one thing a phone cannot reliably be talked through - Safari on iOS in particular may accept
-   it for a direct visit and still refuse it for a call made from this page - so that companion
-   port is the way in when the certificate is what failed. */
+   one thing a phone cannot reliably be talked through, so that companion port is the way in
+   when the certificate is what failed. */
 function plainCopy(base){
   try{
     var u = new URL(base);
-    if(!u.port) return "";        /* no explicit port: nothing sensible to add one to */
+    if(!u.port) return "";
     return "http://" + u.hostname + ":" + (parseInt(u.port, 10) + 1) + "/m";
   }catch(e){ return ""; }
 }
@@ -322,7 +504,7 @@ function certEscape(){
   var url = plainCopy(S.base);
   if(!url) return "";
   return '<p style="margin:10px 0 0">If the certificate warning is what stopped it, skip the ' +
-    "certificate altogether - the server hands out the same app over plain http one port up:</p>" +
+    "certificate altogether — the server hands out the same app over plain http one port up:</p>" +
     '<a class="btn" style="display:block;text-align:center;text-decoration:none" href="' +
     esc(url) + '">Open ' + esc(url) + "</a>";
 }
@@ -333,11 +515,11 @@ function ApiError(msg, kind){ var e = new Error(msg); e.kind = kind || "http"; r
 function api(path, opts){
   opts = opts || {};
   if(blockedByMixedContent(S.base)) return Promise.reject(ApiError("blocked by the browser", "mixed"));
-  var o = { cache:"no-store", method:opts.method || "GET", headers:{} };
-  var k;
+  var o = { cache:"no-store", method:opts.method || "GET", headers:{} }, k;
   for(k in (opts.headers || {})) o.headers[k] = opts.headers[k];
   if(S.token) o.headers["Authorization"] = "Bearer " + S.token;
-  if(opts.body !== undefined && opts.body !== null){
+  if(opts.raw !== undefined){ o.body = opts.raw; }
+  else if(opts.body !== undefined && opts.body !== null){
     o.headers["Content-Type"] = "application/json";
     o.body = typeof opts.body === "string" ? opts.body : JSON.stringify(opts.body);
   }
@@ -363,12 +545,14 @@ function setChip(state, text){ var c = $("#chip"); c.className = "chip " + state
 function showConn(kind, title, html){
   $("#conn-msg").innerHTML = '<div class="msg ' + kind + '"><b class="t">' + esc(title) + "</b>" + html + "</div>";
 }
-/* The Create tab shows either the form or a pointer to Settings. */
 function gate(){
   $("#create-form").hidden = !S.ok;
-  $("#create-gate").innerHTML = S.ok ? "" :
-    '<div class="msg warn"><b class="t">Not connected</b>Set the server address in Settings, then come back here.' +
-    '<button class="btn" onclick="go(\'settings\')">Open settings</button></div>';
+  $("#score-body").hidden = !S.ok;
+  $("#gen-card").hidden = !S.ok;
+  var warn = '<div class="msg warn"><b class="t">Not connected</b>Set the server address in Settings, ' +
+             'then come back here.<button class="btn" onclick="go(\'settings\')">Open settings</button></div>';
+  $("#create-gate").innerHTML = S.ok ? "" : warn;
+  $("#score-gate").innerHTML  = S.ok ? "" : warn;
 }
 
 function connect(fromUI){
@@ -381,17 +565,16 @@ function connect(fromUI){
   }
   $("#conn-msg").innerHTML = "";
   setChip("busy", "connecting…");
-
   if(!S.base){ S.ok = false; setChip("off", "no server"); gate(); return Promise.resolve(); }
 
   if(blockedByMixedContent(S.base)){
     S.ok = false; setChip("off", "blocked");
     var secure = S.base.replace(/^http:/, "https:");
     showConn("bad", "Your browser blocks this connection",
-      'This page is served over HTTPS, and browsers refuse to let it call a plain <code>http://</code> address. ' +
-      "Two ways round it:<ol>" +
+      'This page is served over HTTPS, and browsers refuse to let it call a plain <code>http://</code> ' +
+      "address. Two ways round it:<ol>" +
       "<li><b>Open the copy served by YuE2 itself</b> — the same app, with no such restriction.</li>" +
-      "<li>Or restart the server with <code>--tls</code> and put <code>" + esc(secure) + "</code> in the box below.</li>" +
+      "<li>Or restart the server with <code>--tls</code> and put <code>" + esc(secure) + "</code> below.</li>" +
       '</ol><a class="btn" style="display:block;text-align:center;text-decoration:none" href="' +
       esc(localCopy(S.base)) + '">Open ' + esc(localCopy(S.base)) + "</a>");
     gate(); return Promise.resolve();
@@ -408,12 +591,10 @@ function connect(fromUI){
     S.ok = true; S.guessed = false; save();
     setChip(p.busy ? "busy" : "on", p.busy ? "busy" : "connected");
     showConn("ok", "Connected", "<code>" + esc(S.base) + "</code> is answering.");
-    gate(); loadSystem(); loadLib();
+    gate(); loadDefaults(); loadExamples(); loadSystem(); loadLib();
   }).catch(function(e){
     S.ok = false;
     if(S.guessed){
-      /* We only assumed this page's own origin was the server. It is not - most likely
-         this is the GitHub Pages copy on a phone that has not been set up yet. */
       S.base = ""; S.guessed = false; $("#s-base").value = "";
       setChip("off", "no server");
       showConn("warn", "Point it at your server",
@@ -440,23 +621,129 @@ function explain(e){
   return esc(e.message || String(e));
 }
 
+/* ===================== defaults, settings, sampling ===================== */
+var SAMPLING = [
+  ["temperature", "Temperature", "0.01"],
+  ["top_p", "Top-p", "0.01"],
+  ["top_k", "Top-k", "1"],
+  ["repetition_penalty", "Repetition penalty", "0.005"],
+  ["penalty_window", "Penalty window", "1"],
+  ["min_tokens", "Min tokens", "1"],
+  ["max_tokens", "Max tokens", "1"]
+];
+
+function samplingHtml(prefix, defs){
+  var out = "";
+  for(var i = 0; i < SAMPLING.length; i += 2){
+    out += '<div class="row">';
+    for(var j = i; j < i + 2 && j < SAMPLING.length; j++){
+      var f = SAMPLING[j], d = defs ? defs[f[0]] : "";
+      out += '<div class="field"><label for="' + prefix + "-" + f[0] + '">' + esc(f[1]) + "</label>" +
+             '<input type="number" step="' + f[2] + '" inputmode="decimal" id="' + prefix + "-" + f[0] +
+             '" placeholder="' + esc(d === undefined || d === null ? "" : d) + '"></div>';
+    }
+    out += "</div>";
+  }
+  return out;
+}
+function collectSampling(prefix){
+  var out = {}, any = false;
+  SAMPLING.forEach(function(f){
+    var el = $("#" + prefix + "-" + f[0]);
+    if(el && el.value.trim() !== ""){ out[f[0]] = Number(el.value); any = true; }
+  });
+  return any ? out : null;
+}
+
+function loadDefaults(){
+  return api("/api/defaults").then(function(d){
+    S.defaults = d;
+    $("#samp-abc").innerHTML = samplingHtml("sa", d.abc);
+    $("#samp-sem").innerHTML = samplingHtml("ss", d.semantic);
+    applyGen();
+    cotNote();
+  }).catch(function(){});
+}
+
+/* Generation settings live on this device and ride along with every job. */
+function genDefaults(){ return (S.defaults && S.defaults.settings) || {}; }
+function applyGen(){
+  var d = genDefaults(), g = S.gen || {};
+  function set(id, key, isBool){
+    var el = $(id); if(!el) return;
+    var v = g[key] !== undefined ? g[key] : d[key];
+    el.value = isBool ? String(!!v) : (v === undefined || v === null ? "" : v);
+  }
+  set("#g-vae", "vae"); set("#g-backend", "backend"); set("#g-quant", "quantization");
+  set("#g-ode", "ode_steps"); set("#g-mem", "memory_budget"); set("#g-offload", "offload_ar", true);
+}
+function saveGen(){
+  S.gen = {
+    vae: $("#g-vae").value, backend: $("#g-backend").value, quantization: $("#g-quant").value,
+    ode_steps: Number($("#g-ode").value), memory_budget: Number($("#g-mem").value),
+    offload_ar: $("#g-offload").value === "true"
+  };
+  save(); toast("Settings saved on this device");
+}
+function resetGen(){ S.gen = {}; save(); applyGen(); toast("Back to server defaults"); }
+function settingsPayload(){
+  var d = genDefaults(), g = S.gen || {}, out = {}, k;
+  for(k in d) out[k] = d[k];
+  for(k in g) if(g[k] !== undefined && g[k] !== null && g[k] === g[k]) out[k] = g[k];
+  return out;
+}
+
+function loadExamples(){
+  return api("/api/examples").then(function(d){
+    S.examples = d;
+    var names = Object.keys(d.abc || {});
+    $("#s-example").innerHTML = names.map(function(n){
+      return '<option value="' + esc(n) + '">' + esc(n) + "</option>";
+    }).join("") || '<option value="">(none)</option>';
+  }).catch(function(){});
+}
+
 /* ===================== create ===================== */
 var COT_NOTE = {
   full:   "Writes an ABC score first, then sings it. Best quality.",
-  melody: "Follows a melody you supply. Needs an ABC score, which this app does not edit.",
+  melody: "Follows the ABC score you supply. Needs a score with no chord symbols.",
   off:    "Straight to audio, no score. Fastest, least controlled."
 };
+function cotNote(){
+  $("#cot-note").textContent = COT_NOTE[S.cot];
+  var d = S.defaults && S.defaults.cfg_default;
+  $("#cfg-note").textContent = d ? ("Default for " + S.cot + " planning is " + d[S.cot] + ".") : "";
+  $("#f-cfg").placeholder = d ? String(d[S.cot]) : "";
+}
 $$("#f-cot button").forEach(function(b){
   b.onclick = function(){
+    if(b.disabled) return;
     $$("#f-cot button").forEach(function(x){ x.classList.toggle("on", x === b); });
     S.cot = b.getAttribute("data-v");
-    $("#cot-note").textContent = COT_NOTE[S.cot];
-    $("#go").disabled = S.cot === "melody";
-    $("#go-note").textContent = S.cot === "melody"
-      ? "Melody mode needs an ABC score. Use the desktop UI for that, or pick Full or Off."
-      : "One job runs at a time. Roughly 40–90 s per song once the model is loaded.";
+    cotNote();
   };
 });
+/* Melody planning is only selectable once a score is present. */
+function onAbcInput(){
+  var has = $("#f-abc").value.trim() !== "";
+  var mel = $('#f-cot button[data-v="melody"]');
+  mel.disabled = !has;
+  mel.title = has ? "" : "Add an ABC score first";
+  if(!has && S.cot === "melody"){ $('#f-cot button[data-v="full"]').click(); }
+}
+function pullFromScore(){
+  var v = $("#s-abc").value.trim();
+  if(!v) return toast("The Score tab is empty");
+  $("#f-abc").value = v; onAbcInput(); toast("Score copied in");
+}
+function loadExample(){
+  if(!S.examples || !S.examples.song) return toast("No example available");
+  var e = S.examples.song;
+  $("#f-style").value = e.style || ""; $("#f-lyrics").value = e.lyrics || "";
+  $("#f-id").value = e.id || ""; if(e.seed) $("#f-seed").value = e.seed;
+  var btn = $('#f-cot button[data-v="' + (e.cot || "full") + '"]'); if(btn && !btn.disabled) btn.click();
+  toast("Example loaded");
+}
 
 function submit(){
   var style  = $("#f-style").value.trim();
@@ -464,26 +751,31 @@ function submit(){
   if(!style)  return toast("Add a style first");
   if(!lyrics) return toast("Add some lyrics first");
 
-  var body = { style:style, lyrics:lyrics, cot:S.cot, mode:$("#f-mode").value };
-  var seed = $("#f-seed").value.trim();
-  var count = parseInt($("#f-count").value, 10);
-  var id = $("#f-id").value.trim();
+  var body = { style:style, lyrics:lyrics, cot:S.cot, mode:$("#f-mode").value, settings:settingsPayload() };
+  var seed = $("#f-seed").value.trim(), count = parseInt($("#f-count").value, 10);
+  var id = $("#f-id").value.trim(), cfg = $("#f-cfg").value.trim(), abc = $("#f-abc").value.trim();
   if(seed !== "") body.seed = Number(seed);
   if(count > 1)   body.count = Math.min(count, 16);
   if(id)          body.id = id;
+  if(cfg !== "")  body.cfg_scale = Number(cfg);
+  if(abc)         body.abc = abc;
+  var sa = collectSampling("sa"), ss = collectSampling("ss");
+  if(sa) body.abc_sampling = sa;
+  if(ss) body.semantic_sampling = ss;
 
   var btn = $("#go");
   btn.disabled = true; btn.textContent = "Submitting…";
   api("/api/jobs/generate", { method:"POST", body:body }).then(function(r){
-    (r.jobs || []).forEach(function(j){ S.jobs.unshift(j); });
-    S.jobs = S.jobs.slice(0, 12);
-    renderJobs(); poll();
-    toast((r.jobs || []).length > 1 ? r.jobs.length + " jobs queued" : "Queued");
+    addJobs(r.jobs); toast((r.jobs || []).length > 1 ? r.jobs.length + " jobs queued" : "Queued");
   }).catch(function(e){
     toast(e.kind === "mixed" ? "Blocked by the browser — see Settings" : (e.message || "Failed"));
-  }).then(function(){
-    btn.disabled = S.cot === "melody"; btn.textContent = "Generate";
-  });
+  }).then(function(){ btn.disabled = false; btn.textContent = "Generate"; });
+}
+
+function addJobs(list){
+  (list || []).forEach(function(j){ S.jobs.unshift(j); });
+  S.jobs = S.jobs.slice(0, 16);
+  renderJobs(); poll(); go("create");
 }
 
 function poll(){
@@ -494,10 +786,10 @@ function poll(){
   S.timer = setTimeout(function(){
     Promise.all(live.map(function(j){
       return api("/api/jobs/" + encodeURIComponent(j.id)).then(function(f){
-        var was = j.status;
-        for(var k in f) j[k] = f[k];
+        var was = j.status, k;
+        for(k in f) j[k] = f[k];
         if(f.status === "done" && was !== "done") loadLib();
-      }).catch(function(){ /* keep the card and retry on the next tick */ });
+      }).catch(function(){});
     })).then(function(){ renderJobs(); poll(); });
   }, 1200);
 }
@@ -522,11 +814,13 @@ function renderJobs(){
     var steps = ds.length
       ? '<div class="steps">' + ds.map(function(d){
           return "<span>" + esc(d.label) + (d.seconds ? " " + d.seconds.toFixed(1) + "s" : "") + "</span>";
-        }).join("") + "</div>"
-      : "";
+        }).join("") + "</div>" : "";
     var res = j.result;
     var audio = (j.status === "done" && res && res.kind === "song")
       ? '<audio controls preload="none" src="' + esc(fileUrl(res.name, "audio.flac")) + '"></audio>' : "";
+    var planOut = (j.status === "done" && res && res.kind !== "song")
+      ? '<div class="acts"><button class="btn ghost sm" onclick="openScore(\'' + esc(res.name) +
+        '\')">Open the score</button></div>' : "";
     var trunc = (res && res.truncated && (res.truncated.abc || res.truncated.semantic))
       ? '<p class="note" style="color:var(--warn)">Hit the token ceiling — the song may end abruptly.</p>' : "";
     var err = j.status === "failed"
@@ -534,12 +828,113 @@ function renderJobs(){
     var act = live
       ? '<button class="btn ghost sm" style="margin-top:10px" onclick="cancel(\'' + esc(j.id) + '\')">Cancel</button>' : "";
     return '<div class="job ' + esc(j.status) + '"><div class="job-top"><div class="job-title">' +
-      esc(j.title || "Song") +
+      esc(j.title || "Job") +
       (res ? '<div class="job-sub">' + esc(res.name) +
              (res.audio_seconds ? " · " + res.audio_seconds.toFixed(0) + "s" : "") + "</div>" : "") +
       '</div><span class="tag ' + esc(j.status === "running" ? "run" : j.status) + '">' + esc(j.status) +
-      "</span></div>" + bar + steps + err + trunc + audio + act + "</div>";
+      "</span></div>" + bar + steps + err + trunc + audio + planOut + act + "</div>";
   }).join("");
+}
+
+/* ===================== score tab ===================== */
+function scoreDirty(){ /* placeholder for future autosave */ }
+
+function scoreOut(kind, title, html){
+  $("#score-out").innerHTML = '<div class="msg ' + kind + '"><b class="t">' + esc(title) + "</b>" + html + "</div>";
+}
+function inspectScore(){
+  var abc = $("#s-abc").value.trim();
+  if(!abc) return toast("Nothing to inspect");
+  api("/api/abc/inspect", { method:"POST", body:{ abc:abc } }).then(function(d){
+    var rows = "<div class=\"kv\">" +
+      "<div><b>Tempo</b><span>" + esc(d.bpm) + " BPM, unit " + esc(d.unit_length) + "</span></div>" +
+      "<div><b>Length</b><span>" + esc(d.seconds) + " s</span></div>";
+    Object.keys(d.voices || {}).forEach(function(v){
+      var x = d.voices[v];
+      rows += "<div><b>" + esc(v) + "</b><span>" + x.notes + " notes, " + x.measures + " measures, " +
+              x.chords + " chords, key " + esc((x.keys || []).join("/")) + "</span></div>";
+    });
+    scoreOut(d.ok ? "ok" : "warn", d.ok ? "Score looks valid" : "Score has problems", rows + "</div>");
+  }).catch(function(e){ scoreOut("bad", "Could not read that score", esc(e.message || e)); });
+}
+function stripChords(){
+  var abc = $("#s-abc").value.trim();
+  if(!abc) return toast("Nothing to strip");
+  api("/api/abc/strip", { method:"POST", body:{ abc:abc, keep_voice:$("#s-keep").value } }).then(function(d){
+    $("#s-abc").value = d.abc;
+    scoreOut("ok", "Chords stripped", "The score is now suitable for Melody planning. " +
+      "Use <b>Compare with loaded</b> to confirm the melody and meter did not move.");
+  }).catch(function(e){ scoreOut("bad", "Strip failed", esc(e.message || e)); });
+}
+function compareScore(){
+  var after = $("#s-abc").value.trim();
+  if(!S.loadedAbc) return toast("Load a score first, then compare");
+  if(!after) return toast("Nothing to compare");
+  api("/api/abc/compare", { method:"POST", body:{ before:S.loadedAbc, after:after, voices:"both" } })
+    .then(function(d){
+      var same = d.ok === undefined ? null : d.ok;
+      scoreOut(same === false ? "warn" : "ok", same === false ? "The score changed" : "Invariants hold",
+        '<pre class="txt" style="margin-top:8px">' + esc(JSON.stringify(d, null, 2)) + "</pre>");
+    }).catch(function(e){ scoreOut("bad", "Compare failed", esc(e.message || e)); });
+}
+function sendToCreate(){
+  var abc = $("#s-abc").value.trim();
+  if(!abc) return toast("Nothing to send");
+  $("#f-abc").value = abc; onAbcInput();
+  var mel = $('#f-cot button[data-v="melody"]');
+  if(!mel.disabled) mel.click();
+  go("create"); toast("Sent to Create as a melody cover");
+}
+function loadExampleAbc(){
+  var n = $("#s-example").value;
+  if(!S.examples || !S.examples.abc || !S.examples.abc[n]) return toast("No such example");
+  $("#s-abc").value = S.examples.abc[n]; S.loadedAbc = S.examples.abc[n];
+  scoreOut("ok", "Loaded " + n, "Edit it, or send it straight to Create.");
+}
+function loadLibAbc(){
+  var n = $("#s-lib").value;
+  if(!n) return toast("Nothing selected");
+  api("/api/library/" + encodeURIComponent(n)).then(function(d){
+    if(!d.abc) return toast("That item has no score");
+    $("#s-abc").value = d.abc; S.loadedAbc = d.abc;
+    scoreOut("ok", "Loaded from " + n, "Edit it, or send it straight to Create.");
+  }).catch(function(e){ toast(e.message || "Could not load"); });
+}
+function openScore(name){
+  $("#s-lib").value = name; go("score"); loadLibAbc();
+}
+
+/* Transcription needs SheetSage2 on the server; show what is missing when it is absent. */
+function renderCover(sys){
+  var ss = (sys && sys.sheetsage) || {};
+  if(!ss.available){
+    $("#cover-body").innerHTML =
+      '<div class="msg warn" style="margin:0"><b class="t">SheetSage2 is not set up on the server</b>' +
+      "Transcribing an audio file into a score needs SheetSage2 in its own Python 3.10/3.11 environment " +
+      "plus FFmpeg 6.1 (see <code>docs/covers.md</code>). Until then, paste an ABC score above instead — " +
+      "strip the chords, then send it to Create as a melody cover.</div>";
+    return;
+  }
+  $("#cover-body").innerHTML =
+    '<div class="field"><label for="c-file">Audio file</label><input type="file" id="c-file" accept="audio/*"></div>' +
+    '<div class="row"><div class="field"><label for="c-task">Task</label><select id="c-task">' +
+      '<option value="melody-full">melody-full</option><option value="full">full</option>' +
+      '<option value="melody-vocal">melody-vocal</option></select></div>' +
+    '<div class="field"><label for="c-preset">Preset</label><select id="c-preset">' +
+      '<option value="default">default</option><option value="paper">paper</option></select></div></div>' +
+    '<div class="field"><label for="c-max">Max seconds <span class="hint">&mdash; blank = all</span></label>' +
+      '<input type="number" id="c-max" inputmode="numeric" placeholder="all"></div>' +
+    '<button class="btn" onclick="transcribe()">Transcribe</button>';
+}
+function transcribe(){
+  var f = $("#c-file").files[0];
+  if(!f) return toast("Choose an audio file first");
+  var fd = new FormData();
+  fd.append("file", f); fd.append("task", $("#c-task").value);
+  fd.append("preset", $("#c-preset").value); fd.append("max_seconds", $("#c-max").value.trim());
+  api("/api/jobs/transcribe", { method:"POST", raw:fd }).then(function(r){
+    addJobs(r.jobs); toast("Transcribing…");
+  }).catch(function(e){ toast(e.message || "Transcribe failed"); });
 }
 
 /* ===================== library ===================== */
@@ -547,7 +942,11 @@ function loadLib(manual){
   if(!S.ok) return Promise.resolve();
   if(manual) toast("Refreshing…");
   return api("/api/library").then(function(r){
-    S.lib = r.items || []; renderLib();
+    S.lib = r.items || [];
+    $("#s-lib").innerHTML = S.lib.filter(function(i){ return i.has_score; }).map(function(i){
+      return '<option value="' + esc(i.name) + '">' + esc(i.name) + "</option>";
+    }).join("") || '<option value="">(nothing with a score yet)</option>';
+    renderLib();
   }).catch(function(e){ if(manual) toast(e.message || "Could not load library"); });
 }
 
@@ -563,55 +962,179 @@ function renderLib(){
       '<circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div>' +
       (S.ok ? (q ? "Nothing matches that." : "No songs yet — make one on the Create tab.")
             : "Connect to a server first.") + "</div></div>";
-    return;
+    return syncSel();
   }
   $("#lib").innerHTML = items.map(function(i){
     var when = new Date((i.created || 0) * 1000);
     var meta = [ i.kind === "plan" ? "plan" : (i.audio_seconds ? i.audio_seconds.toFixed(0) + "s" : "song"),
                  "seed " + (i.seed === undefined || i.seed === null ? "?" : i.seed),
-                 i.cot || "", when.toLocaleString() ].filter(Boolean).join(" · ");
+                 i.cot || "", i.decoder || "", when.toLocaleString() ].filter(Boolean).join(" · ");
+    var picked = S.sel.indexOf(i.name) >= 0;
     var audio = i.kind === "song"
       ? '<audio controls preload="none" src="' + esc(fileUrl(i.name, "audio.flac")) + '"></audio>' : "";
-    return '<details class="item"><summary><div class="item-main"><div class="item-name">' +
-      esc(i.id || i.name) + '</div><div class="item-meta">' + esc(meta) + "</div></div>" +
+    var trunc = (i.truncated && (i.truncated.abc || i.truncated.semantic))
+      ? '<p class="note" style="color:var(--warn)">Hit the token ceiling.</p>' : "";
+    return '<details class="item' + (picked ? " sel" : "") + '"><summary>' +
+      '<span class="pick' + (picked ? " on" : "") + '" onclick="togglePick(event,\'' + esc(i.name) + '\')">' +
+        '<svg viewBox="0 0 24 24"><path d="m4 12 6 6L20 6"/></svg></span>' +
+      '<div class="item-main"><div class="item-name">' + esc(i.id || i.name) + "</div>" +
+      '<div class="item-meta">' + esc(meta) + "</div></div>" +
       '<svg class="caret" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>' +
       '</summary><div class="item-body"><div class="kv">' +
       "<div><b>Style</b><span>" + esc(i.style || "—") + "</span></div>" +
       "<div><b>Folder</b><span>" + esc(i.name) + "</span></div>" +
+      (i.seconds ? "<div><b>Took</b><span>" + i.seconds.toFixed(1) + " s</span></div>" : "") +
+      (i.parent ? "<div><b>From</b><span>" + esc(i.parent) + "</span></div>" : "") +
       (i.note ? "<div><b>Note</b><span>" + esc(i.note) + "</span></div>" : "") +
+      "</div>" + trunc +
+      (i.lyrics_preview ? '<pre class="txt">' + esc(i.lyrics_preview) + "</pre>" : "") + audio +
+      '<div class="acts">' +
+        '<button class="btn ghost sm" onclick="reuse(\'' + esc(i.name) + '\')">Reuse settings</button>' +
+        (i.has_score ? '<button class="btn ghost sm" onclick="openScore(\'' + esc(i.name) + '\')">Edit score</button>' : "") +
+        '<button class="btn ghost sm" onclick="showDetails(\'' + esc(i.name) + '\')">Details</button>' +
+        (i.kind === "song" ? '<a class="btn ghost sm" href="' + esc(fileUrl(i.name, "audio.flac")) + '" download target="_blank" rel="noopener">Download</a>' : "") +
+        '<button class="btn bad sm" onclick="del(\'' + esc(i.name) + '\')">Delete</button>' +
       "</div>" +
-      (i.lyrics_preview ? '<pre class="txt">' + esc(i.lyrics_preview) + "</pre>" : "") +
-      audio +
-      '<div class="acts"><button class="btn ghost sm" onclick="reuse(\'' + esc(i.name) + '\')">Reuse settings</button>' +
-      (i.has_score ? '<a class="btn ghost sm" href="' + esc(fileUrl(i.name, "score.abc")) + '" target="_blank" rel="noopener">Score</a>' : "") +
-      (i.kind === "song" ? '<a class="btn ghost sm" href="' + esc(fileUrl(i.name, "audio.flac")) + '" download target="_blank" rel="noopener">Download</a>' : "") +
-      '<button class="btn bad sm" onclick="del(\'' + esc(i.name) + '\')">Delete</button></div></div></details>';
+      '<details class="acc" style="margin-top:12px"><summary>Render this plan again</summary><div class="acc-body">' +
+        '<p class="note" style="margin:0 0 10px">Reuses the saved score tokens exactly; only the audio is new.</p>' +
+        '<div class="row"><div class="field"><label>Seed</label>' +
+          '<input type="number" id="rp-seed-' + esc(i.name) + '" placeholder="same" inputmode="numeric"></div>' +
+        '<div class="field"><label>Guidance</label>' +
+          '<input type="text" id="rp-cfg-' + esc(i.name) + '" placeholder="same" inputmode="decimal"></div>' +
+        '<div class="field"><label>Copies</label>' +
+          '<input type="number" id="rp-n-' + esc(i.name) + '" value="1" min="1" max="16" inputmode="numeric"></div></div>' +
+        '<button class="btn ghost sm" onclick="renderPlan(\'' + esc(i.name) + '\')">Render</button>' +
+      "</div></details>" +
+      (i.kind === "song" ?
+      '<details class="acc"><summary>Decode again with the other decoder</summary><div class="acc-body">' +
+        '<p class="note" style="margin:0 0 10px">Reuses the cached latents — no new singing, just a different decoder.</p>' +
+        '<div class="row tight"><select id="dec-' + esc(i.name) + '">' +
+          '<option value="legacy">Legacy (benchmark)</option><option value="standard">Standard</option></select>' +
+        '<button class="btn ghost sm" style="flex:none" onclick="decode(\'' + esc(i.name) + '\')">Decode</button></div>' +
+      "</div></details>" : "") +
+      "</div></details>";
   }).join("");
+  syncSel();
+}
+
+function togglePick(ev, name){
+  ev.preventDefault(); ev.stopPropagation();
+  var k = S.sel.indexOf(name);
+  if(k >= 0) S.sel.splice(k, 1); else S.sel.push(name);
+  renderLib();
+}
+function clearSel(){ S.sel = []; $("#compare-out").innerHTML = ""; renderLib(); }
+function syncSel(){
+  var n = S.sel.length;
+  $("#selbar").classList.toggle("on", n > 0);
+  $("#selcount").textContent = n + " selected";
 }
 
 function reuse(name){
   api("/api/library/" + encodeURIComponent(name)).then(function(d){
-    var req = d.request || d || {};
+    var req = d.request || {};
     if(req.style)  $("#f-style").value  = req.style;
     if(req.lyrics) $("#f-lyrics").value = req.lyrics;
     if(req.id)     $("#f-id").value     = req.id;
+    if(req.seed !== undefined && req.seed !== null) $("#f-seed").value = req.seed;
+    $("#f-cfg").value = (req.cfg_scale === undefined || req.cfg_scale === null) ? "" : req.cfg_scale;
+    $("#f-abc").value = req.abc || ""; onAbcInput();
     var btn = $('#f-cot button[data-v="' + (req.cot || "full") + '"]');
-    if(btn) btn.click();
+    if(btn && !btn.disabled) btn.click();
+    if(d.settings){ S.gen = d.settings; save(); applyGen(); }
     go("create"); toast("Loaded into Create");
   }).catch(function(e){ toast(e.message || "Could not load that item"); });
 }
 
+function showDetails(name){
+  api("/api/library/" + encodeURIComponent(name)).then(function(d){
+    var t = d.timing || {}, sc = d.score_check || {}, st = d.settings || {};
+    var rows = "";
+    Object.keys(t).forEach(function(k){
+      var x = t[k];
+      if(x && x.seconds !== undefined){
+        rows += "<div><b>" + esc(k) + "</b><span>" + x.seconds.toFixed(2) + " s" +
+                (x.output_tokens ? " · " + x.output_tokens + " tokens" : "") + "</span></div>";
+      }
+    });
+    var body = "<div class=\"kv\">" +
+      "<div><b>Decoder</b><span>" + esc(st.vae || "—") + " · " + esc(st.backend || "") +
+        " · " + esc(st.quantization || "") + "</span></div>" +
+      "<div><b>ODE steps</b><span>" + esc(st.ode_steps) + "</span></div>" +
+      (sc.bpm ? "<div><b>Score</b><span>" + esc(sc.bpm) + " BPM · " + esc(sc.seconds) + " s</span></div>" : "") +
+      rows + "</div>" +
+      '<pre class="txt">' + esc((d.lyrics || "").slice(0, 1200)) + "</pre>";
+    showModal(name, body);
+  }).catch(function(e){ toast(e.message || "Could not load details"); });
+}
+function showModal(title, html){
+  $("#compare-out").innerHTML = '<div class="card"><h2>' + esc(title) + "</h2>" + html +
+    '<button class="btn ghost sm" onclick="$(\'#compare-out\').innerHTML=\'\'">Close</button></div>';
+  window.scrollTo(0, 0);
+}
+
+function renderPlan(name){
+  var seed = document.getElementById("rp-seed-" + name).value.trim();
+  var cfg  = document.getElementById("rp-cfg-" + name).value.trim();
+  var n    = parseInt(document.getElementById("rp-n-" + name).value, 10) || 1;
+  var body = { source:name, count:Math.min(n, 16), settings:settingsPayload() };
+  if(seed !== "") body.seed = Number(seed);
+  if(cfg !== "")  body.cfg_scale = Number(cfg);
+  api("/api/jobs/render-plan", { method:"POST", body:body }).then(function(r){
+    addJobs(r.jobs); toast("Rendering…");
+  }).catch(function(e){ toast(e.message || "Render failed"); });
+}
+function decode(name){
+  api("/api/jobs/decode", { method:"POST", body:{ source:name, vae:document.getElementById("dec-" + name).value } })
+    .then(function(r){ addJobs(r.jobs); toast("Decoding…"); })
+    .catch(function(e){ toast(e.message || "Decode failed"); });
+}
 function del(name){
   if(!confirm("Delete " + name + "?\nThis removes the folder on the server.")) return;
   api("/api/library/" + encodeURIComponent(name), { method:"DELETE" }).then(function(){
     S.lib = S.lib.filter(function(i){ return i.name !== name; });
+    S.sel = S.sel.filter(function(x){ return x !== name; });
     renderLib(); toast("Deleted");
   }).catch(function(e){ toast(e.message || "Could not delete"); });
 }
 
+function buildListen(){
+  if(!S.sel.length) return toast("Select at least one song");
+  api("/api/listen", { method:"POST", body:{ names:S.sel.slice() } }).then(function(d){
+    $("#compare-out").innerHTML = '<div class="msg ok"><b class="t">Listening page built</b>' +
+      'Audio, scores and prompts for ' + S.sel.length + ' item(s), in one page.' +
+      '<a class="btn" style="display:block;text-align:center;text-decoration:none;margin-top:10px" href="' +
+      esc(S.base + d.url) + '" target="_blank" rel="noopener">Open it</a></div>';
+    window.scrollTo(0, 0);
+  }).catch(function(e){ toast(e.message || "Could not build the page"); });
+}
+
+/* Blind A/B: the labels are hidden until you decide which one you prefer. */
+function blindCompare(){
+  var picks = S.sel.filter(function(n){
+    var it = S.lib.filter(function(i){ return i.name === n; })[0];
+    return it && it.kind === "song";
+  });
+  if(picks.length !== 2) return toast("Select exactly two songs to compare");
+  var order = Math.random() < 0.5 ? [picks[0], picks[1]] : [picks[1], picks[0]];
+  $("#compare-out").innerHTML = '<div class="card"><h2>Blind compare</h2>' +
+    '<div class="ab">' + order.map(function(n, k){
+      return "<div><h3>" + (k ? "B" : "A") + "</h3>" +
+        '<audio controls preload="none" src="' + esc(fileUrl(n, "audio.flac")) + '"></audio>' +
+        '<div class="who" id="who-' + k + '" style="margin-top:8px">hidden</div></div>';
+    }).join("") + "</div>" +
+    '<div class="acts"><button class="btn ghost sm" onclick="revealAb(' +
+      esc(JSON.stringify(order)).replace(/"/g, "&quot;") + ')">Reveal</button>' +
+    '<button class="btn ghost sm" onclick="$(\'#compare-out\').innerHTML=\'\'">Close</button></div></div>';
+  window.scrollTo(0, 0);
+}
+function revealAb(order){
+  order.forEach(function(n, k){ var el = $("#who-" + k); if(el) el.textContent = n; });
+}
+
 /* ===================== system ===================== */
 function loadSystem(){
-  api("/api/system").then(function(s){
+  return api("/api/system").then(function(s){
     var gpu = s.gpu || {};
     var models = Object.keys(s.models || {}).map(function(k){
       return (s.models[k] ? "✓ " : "· ") + esc(k);
@@ -622,9 +1145,17 @@ function loadSystem(){
         (gpu.total_gib ? " · " + (gpu.free_gib || 0).toFixed(1) + " / " + gpu.total_gib.toFixed(0) + " GiB free" : "") + "</span></div>" +
       "<div><b>Torch</b><span>" + esc(s.torch || "—") + " · Python " + esc(s.python || "—") + "</span></div>" +
       "<div><b>Pipeline</b><span>" + esc(s.pipeline || "not loaded") + "</span></div>" +
+      "<div><b>SheetSage2</b><span>" + ((s.sheetsage || {}).available ? "available" : "not set up") + "</span></div>" +
       "<div><b>Outputs</b><span style=\"word-break:break-all\">" + esc(s.outputs || "—") + "</span></div>" +
-      "<div><b>Models</b><span>" + (models || "—") + "</span></div></div>";
+      "<div><b>Models</b><span>" + (models || "—") + "</span></div></div>" +
+      '<button class="btn ghost sm" onclick="unload()">Free GPU memory</button>';
+    renderCover(s);
   }).catch(function(){ $("#sys").hidden = true; });
+}
+function unload(){
+  api("/api/system/unload", { method:"POST" })
+    .then(function(){ toast("Pipeline unloaded"); loadSystem(); })
+    .catch(function(e){ toast(e.message || "Could not unload"); });
 }
 
 /* ===================== shell ===================== */
@@ -648,7 +1179,7 @@ function toast(m){
   if(qs.get("token"))  S.token = qs.get("token");
   if(qs.get("server") || qs.get("token")){
     save();
-    history.replaceState(null, "", location.pathname);   /* keep the token out of the address bar */
+    history.replaceState(null, "", location.pathname);
   }
   /* Served by the server itself? Then same-origin is the server. A GitHub Pages build is
      not, so this is only a guess - connect() falls back to the setup screen if it fails. */
@@ -656,6 +1187,7 @@ function toast(m){
 
   $("#s-base").value  = S.base;
   $("#s-token").value = S.token;
+  onAbcInput();
   go("create"); gate();
   connect(false);
   document.addEventListener("visibilitychange", function(){ if(!document.hidden && S.ok) loadLib(); });

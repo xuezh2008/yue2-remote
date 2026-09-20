@@ -6,8 +6,19 @@ Pages and talks to *your* PC over your Wi-Fi.
 
 **Live:** https://xuezh2008.github.io/yue2-remote/
 
-Create a song, watch the stages tick by, play the result, browse and delete the library. The heavy
-lifting stays on the GPU at home; GitHub only ever serves this one file.
+The heavy lifting stays on the GPU at home; GitHub only ever serves this one file.
+
+It covers what the desktop UI does, rearranged for a thumb:
+
+| Tab | What it covers |
+|---|---|
+| Create | style + lyrics, planning mode (`full`/`melody`/`off`), seed, variations, name, plan-only output, guidance (`cfg_scale`), your own ABC score, and per-stage planner/song sampling overrides |
+| Score | paste or load a score (from an example or any library item), inspect it, strip chords, compare melody/meter invariants against what you loaded, send it to Create as a melody cover; transcription from audio when SheetSage2 is set up |
+| Library | play, filter, reuse settings, edit the score, full details (decoder, timings, token counts), render a saved plan again with a new seed or guidance, re-decode cached latents with the other decoder, blind A/B two songs, build the offline listening page, download, delete |
+| Settings | server address and token, decoder / backend / quantization / memory budget / flow-matching steps / AR offload (sent with every job you start), GPU and model status, free GPU memory |
+
+The Cover tab's audio transcription needs SheetSage2 on the server; without it the Score tab says so and
+the paste-an-ABC route still works. The desktop UI remains the better place for long score editing.
 
 ## Using it
 
